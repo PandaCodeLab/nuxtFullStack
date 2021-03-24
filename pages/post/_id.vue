@@ -41,13 +41,36 @@
         consectetur.
       </p>
     </main>
+    <footer>
+      <AppCommentForm v-if="canAddComment" @created="createCommentHandler" />
+
+      <div class="post__comments" v-if="true">
+        <AppComment v-for="comment in 3" :key="comment" :comment="comment" />
+      </div>
+      <div class="post__comments text-center" v-else>Комментариев нет</div>
+    </footer>
   </article>
 </template>
 
 <script>
+import AppComment from '@/components/main/Comment'
+import AppCommentForm from '@/components/main/CommentForm'
+
 export default {
   validate({ params }) {
     return !!params.id
+  },
+  data: () => ({
+    canAddComment: true
+  }),
+  methods: {
+    createCommentHandler() {
+      this.canAddComment = false
+    }
+  },
+  components: {
+    AppComment,
+    AppCommentForm
   }
 }
 </script>
