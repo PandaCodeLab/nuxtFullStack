@@ -1,5 +1,5 @@
 export const state = () => ({
-  token: ''
+  token: true
 })
 
 export const mutations = {
@@ -13,11 +13,18 @@ export const mutations = {
 }
 
 export const actions = {
+  async createUser({ commit }, formData) {
+    try {
+    } catch (e) {
+      commit('setError', e, { root: true })
+      throw e
+    }
+  },
   async login({ commit, dispatch }, formData) {
     try {
       const token = await new Promise((resolve, reject) => {
         setTimeout(() => {
-          return reject('mock-token')
+          return resolve('mock-token')
         }, 1500)
       })
 
