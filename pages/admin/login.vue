@@ -86,7 +86,7 @@ export default {
             this.$message.success('Вы вошли в систему')
           } catch (e) {
             this.loading = false
-            this.$message.success('Что то пошло не так')
+            this.$message.error('Что то пошло не так')
           }
         }
       })
