@@ -22,6 +22,28 @@ export const actions = {
     })
   },
 
+  async create({}, { title, content }) {
+    const maxPostId = Math.max.apply(
+      Math,
+      posts.map(function(o) {
+        return o._id
+      })
+    )
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        posts.push({
+          title,
+          content,
+          views: 0,
+          comments: [],
+          _id: (maxPostId + 1).toString()
+        })
+        resolve()
+      }, 1000)
+    })
+  },
+
   async remove({ store }, postId) {},
 
   async update({}, post) {

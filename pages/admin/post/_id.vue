@@ -19,6 +19,10 @@
           <el-input v-model="post.title"></el-input>
         </el-form-item>
 
+        <el-form-item label="Контент поста" prop="content">
+          <el-input type="textarea" :rows="5" v-model="post.content"></el-input>
+        </el-form-item>
+
         <el-form-item>
           <el-button
             :loading="loading"
@@ -60,7 +64,6 @@ export default {
   methods: {
     submitHandler() {
       this.$refs['form'].validate(async valid => {
-        console.log(valid)
         if (valid) {
           this.loading = true
 
