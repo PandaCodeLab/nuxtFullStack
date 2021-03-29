@@ -30,6 +30,27 @@
     <el-dialog title="Предросмотр" :visible.sync="previewDialog">
       <vue-markdown :source="post.content"></vue-markdown>
     </el-dialog>
+
+    <el-upload
+      ref="upload"
+      class="mb"
+      drag
+      :on-exceed="uploadLimit"
+      :limit="1"
+      :multiple="false"
+      :thumbnail-mode="true"
+      :on-change="handleImageChange"
+      :auto-upload="false"
+      action="https://jsonplaceholder.typicode.com/posts/"
+    >
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">
+        Перетащите картинку или <em>нажмите</em>
+      </div>
+      <div class="el-upload__tip" slot="tip">
+        Файлы с расширением jpg/png
+      </div>
+    </el-upload>
   </div>
 </template>
 
@@ -40,7 +61,8 @@ export default {
   data: () => ({
     post: {
       title: '',
-      content: ''
+      content: '',
+      image: null
     },
     previewDialog: false,
     loading: false,
@@ -62,20 +84,30 @@ export default {
     }
   }),
   methods: {
+    uploadLimit() {
+      this.$message.error('Нельзя загружать более одного изображения')
+    },
+    handleImageChange(file) {
+      console.log(file)
+      this.image = file.raw
+    },
     submitHandler() {
       this.$refs['form'].validate(async valid => {
-        if (valid) {
+        if (valid && this.image) {
           this.loading = true
 
           const formData = {
             title: this.post.title,
-            content: this.post.content
+            content: this.post.content,
+            image: this.post.image
           }
 
           try {
             await this.$store.dispatch('posts/create', formData)
             this.post.title = ''
             this.post.content = ''
+            this.post.image = null
+            this.$refs.upload.clearFiles()
             this.$message.success('Пост был успешно создан')
           } catch (e) {
             this.$message.error('Ошибка при создании поста')
@@ -83,6 +115,8 @@ export default {
           } finally {
             this.loading = false
           }
+        } else {
+          this.$message.warning('Форма не валидна')
         }
       })
     }

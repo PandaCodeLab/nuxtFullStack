@@ -22,7 +22,7 @@ export const actions = {
     })
   },
 
-  async create({}, { title, content }) {
+  async create({ commit }, { title, content, image }) {
     const maxPostId = Math.max.apply(
       Math,
       posts.map(function(o) {
@@ -30,7 +30,23 @@ export const actions = {
       })
     )
 
-    await new Promise(resolve => {
+    try {
+      const fd = new FormData()
+
+      fd.append('title', title)
+      fd.append('content', content)
+      fd.append('image', image)
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      })
+    } catch (e) {
+      commit('setError', e, { root: true })
+    }
+
+    /* await new Promise(resolve => {
       setTimeout(() => {
         posts.push({
           title,
@@ -41,7 +57,7 @@ export const actions = {
         })
         resolve()
       }, 1000)
-    })
+    }) */
   },
 
   async remove({ store }, postId) {},

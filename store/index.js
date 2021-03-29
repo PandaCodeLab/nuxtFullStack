@@ -5,6 +5,7 @@ export const state = () => ({
 export const mutations = {
   setError(state, error) {
     state.error = error
+    throw error
   },
   clearError(state) {
     state.error = null
