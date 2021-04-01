@@ -3,9 +3,11 @@ const Post = require('../models/post.model')
 module.exports.create = async (req, res) => {
   const post = new Post({
     title: req.body.title,
-    text: req.body.text,
+    content: req.body.content,
     imageUrl: `/${req.file.filename}`
   })
+
+  console.log(post)
 
   try {
     await post.save()

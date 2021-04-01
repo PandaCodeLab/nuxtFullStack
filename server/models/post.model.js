@@ -5,7 +5,7 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  text: {
+  content: {
     type: String,
     required: true
   },

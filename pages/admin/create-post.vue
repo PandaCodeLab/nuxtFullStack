@@ -89,11 +89,11 @@ export default {
     },
     handleImageChange(file) {
       console.log(file)
-      this.image = file.raw
+      this.post.image = file.raw
     },
     submitHandler() {
       this.$refs['form'].validate(async valid => {
-        if (valid && this.image) {
+        if (valid && this.post.image) {
           this.loading = true
 
           const formData = {
