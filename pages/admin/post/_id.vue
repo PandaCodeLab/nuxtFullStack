@@ -23,6 +23,20 @@
           <el-input type="textarea" :rows="5" v-model="post.content"></el-input>
         </el-form-item>
 
+        <div class="mb1">
+          <small class="mr">
+            <i class="el-icon-time"></i>
+            <span>
+              {{ new Date(post.date).toLocaleString() }}
+            </span>
+          </small>
+
+          <small>
+            <i class="el-icon-view"></i>
+            <span>{{ post.views }}</span>
+          </small>
+        </div>
+
         <el-form-item>
           <el-button
             :loading="loading"
@@ -42,6 +56,9 @@
 export default {
   layout: 'admin',
   middleware: 'admin-auth',
+  mounted() {
+    console.log(this.post)
+  },
   data: () => ({
     loading: false,
     rules: {
@@ -68,8 +85,9 @@ export default {
           this.loading = true
 
           const post = {
+            _id: this.post._id,
             title: this.post.title,
-            _id: this.post._id
+            content: this.post.content
           }
 
           try {
@@ -85,3 +103,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.mr {
+  margin-right: 10px;
+}
+</style>

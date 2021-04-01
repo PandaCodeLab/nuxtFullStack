@@ -5,11 +5,11 @@
         <span style="margin-left: 10px">{{ title }}</span>
       </template>
     </el-table-column>
-    <el-table-column label="Дата" width="180">
-      <template>
+    <el-table-column label="Дата" width="220">
+      <template slot-scope="{ row: { date } }">
         <i class="el-icon-time"></i>
         <span style="margin-left: 10px">{{
-          new Date().toLocaleDateString()
+          new Date(date).toLocaleString()
         }}</span>
       </template>
     </el-table-column>

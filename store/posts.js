@@ -13,13 +13,33 @@ const posts = [
   }
 ]
 
+/* export const state = () => ({
+  posts: []
+})
+
+export const mutations = {
+  setPosts(state, posts) {
+    state.posts = posts
+  }
+} */
+
 export const actions = {
-  async fetchAdmin({}) {
-    return await new Promise(resolve => {
-      setTimeout(() => {
-        return resolve(posts)
-      }, 1500)
-    })
+  async fetchAdmin({ commit }) {
+    try {
+      return await this.$axios.$get('/api/post/admin')
+    } catch (e) {
+      commit('setError', e, { root: true })
+      throw e
+    }
+  },
+
+  async fetchAdminById({}, id) {
+    try {
+      return await this.$axios.$get(`/api/post/admin/${id}`)
+    } catch (e) {
+      commit('setError', e, { root: true })
+      throw e
+    }
   },
 
   async create({ commit }, { title, content, image }) {
@@ -38,42 +58,32 @@ export const actions = {
       fd.append('image', image)
 
       return await this.$axios.$post('/api/post/admin', fd)
-
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve()
-        }, 1000)
-      })
     } catch (e) {
       commit('setError', e, { root: true })
     }
-
-    /* await new Promise(resolve => {
-      setTimeout(() => {
-        posts.push({
-          title,
-          content,
-          views: 0,
-          comments: [],
-          _id: (maxPostId + 1).toString()
-        })
-        resolve()
-      }, 1000)
-    }) */
   },
 
-  async remove({ store }, postId) {},
-
-  async update({}, post) {
-    const postIndex = posts.findIndex(p => p._id === post._id)
-    posts[postIndex].title = post.title
+  async remove({ commit }, id) {
+    try {
+      return await this.$axios.$delete(`/api/post/admin/${id}`)
+    } catch (e) {
+      commit('setError', e, { root: true })
+      throw e
+    }
   },
 
-  async fetchAdminById({}, id) {
-    return await new Promise(resolve => {
-      setTimeout(() => {
-        return resolve(posts.find(p => p._id === id))
-      }, 1500)
-    })
+  async update({ commit }, { _id, title, content }) {
+    try {
+      return await this.$axios.$put(`/api/post/admin/${_id}`, {
+        title,
+        content
+      })
+    } catch (e) {
+      commit('setError', e, { root: true })
+      throw e
+    }
+
+    /*     const postIndex = posts.findIndex(p => p._id === post._id)
+    posts[postIndex].title = post.title */
   }
 }
