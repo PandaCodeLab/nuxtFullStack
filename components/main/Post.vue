@@ -15,7 +15,8 @@
       <el-button round type="primary" @click="openPost">Открыть</el-button>
 
       <span>
-        <i class="el-icon-message">{{ post.views }}</i>
+        <i class="el-icon-message" style="padding-right: 5px"></i
+        >{{ post.views }}
       </span>
     </footer>
   </el-card>

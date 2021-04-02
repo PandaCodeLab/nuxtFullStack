@@ -67,10 +67,10 @@ export default {
 
           try {
             const comment = await this.$store.dispatch(
-              'posts/createComment',
+              'comment/create',
               formData
             )
-            this.$emit('commentCreated', comment)
+            this.$emit('created', comment)
             this.controls.name = ''
             this.controls.text = ''
             this.loading = false

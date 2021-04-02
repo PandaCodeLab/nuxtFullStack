@@ -1,13 +1,4 @@
 export const actions = {
-  async createComment({}, formData) {
-    try {
-      return await this.$axios.$post('/api/comment', formData)
-    } catch (e) {
-      commit('setError', e, { root: true })
-      throw e
-    }
-  },
-
   async fetch({ commit }) {
     try {
       return await this.$axios.$get('/api/post')

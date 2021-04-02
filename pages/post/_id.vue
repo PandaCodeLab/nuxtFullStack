@@ -12,7 +12,10 @@
           ><i class="el-icon-time"></i>
           {{ new Date(post.date).toLocaleString() }}
         </small>
-        <small></small>
+        <small
+          ><i class="el-icon-message" style="padding-right: 5px"></i
+          >{{ post.views }}</small
+        >
       </div>
       <div class="post__img">
         <img :src="post.imageUrl" alt="" />
@@ -22,11 +25,7 @@
       <vue-markdown>{{ post.content }}</vue-markdown>
     </main>
     <footer>
-      <AppCommentForm
-        v-if="canAddComment"
-        @created="createCommentHandler"
-        @commentCreated="updateCommentsList"
-      />
+      <AppCommentForm v-if="canAddComment" @created="createCommentHandler" />
 
       <div class="post__comments" v-if="post.comments.length">
         <AppComment
@@ -48,7 +47,12 @@ export default {
   async asyncData({ store, params }) {
     const post = await store.dispatch('posts/fetchById', params.id)
     await store.dispatch('posts/addView', post)
-    return { post }
+    return {
+      post: {
+        ...post,
+        views: ++post.views
+      }
+    }
   },
   validate({ params }) {
     return !!params.id
@@ -57,11 +61,9 @@ export default {
     canAddComment: true
   }),
   methods: {
-    createCommentHandler() {
+    createCommentHandler(newComment) {
+      this.post.comments.unshift(newComment)
       this.canAddComment = false
-    },
-    updateCommentsList(newComment) {
-      this.post.comments.push(newComment)
     }
   },
   components: {
