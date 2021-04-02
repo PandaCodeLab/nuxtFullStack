@@ -23,6 +23,10 @@ module.exports = {
 
   axios: {},
 
+  env: {
+    appName: 'SSR Blog'
+  },
+
   build: {
     transpile: [/^element-ui/],
 

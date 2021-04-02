@@ -63,7 +63,6 @@ export default {
   },
   mounted() {
     this.renderChart(this.chartdata, this.options)
-    console.log(this.analytics)
   }
 }
 </script>

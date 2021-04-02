@@ -19,6 +19,9 @@
 import AppAnalyticsChart from '@/components/admin/AnalyticsChart'
 
 export default {
+  head() {
+    return { title: `Аналитика | ${process.env.appName}` }
+  },
   layout: 'admin',
   middleware: ['admin-auth'],
   async asyncData({ store }) {
@@ -27,9 +30,6 @@ export default {
   },
   components: {
     AppAnalyticsChart
-  },
-  mounted() {
-    console.log(this.comments)
   }
 }
 </script>

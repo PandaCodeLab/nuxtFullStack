@@ -10,7 +10,7 @@
       <div class="post__info">
         <small
           ><i class="el-icon-time"></i>
-          {{ new Date(post.date).toLocaleString() }}
+          {{ post.date | date }}
         </small>
         <small
           ><i class="el-icon-message" style="padding-right: 5px"></i
@@ -44,6 +44,9 @@ import AppComment from '@/components/main/Comment'
 import AppCommentForm from '@/components/main/CommentForm'
 
 export default {
+  head() {
+    return { title: `${this.post.title} | ${process.env.appName}` }
+  },
   async asyncData({ store, params }) {
     const post = await store.dispatch('posts/fetchById', params.id)
     await store.dispatch('posts/addView', post)
