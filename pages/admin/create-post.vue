@@ -88,7 +88,6 @@ export default {
       this.$message.error('Нельзя загружать более одного изображения')
     },
     handleImageChange(file) {
-      console.log(file)
       this.post.image = file.raw
     },
     submitHandler() {

@@ -56,9 +56,6 @@
 export default {
   layout: 'admin',
   middleware: 'admin-auth',
-  mounted() {
-    console.log(this.post)
-  },
   data: () => ({
     loading: false,
     rules: {

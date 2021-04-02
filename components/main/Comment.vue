@@ -2,14 +2,14 @@
   <div>
     <el-card class="comment">
       <div class="comment__header">
-        <span>Person Name</span>
+        <span>{{ comment.name }}</span>
         <span>
           <i class="el-icon-time"></i>
-          {{ new Date().toLocaleString() }}
+          {{ new Date(comment.date).toLocaleString() }}
         </span>
       </div>
       <div class="comment__text">
-        Lorem ipsum dolor sit amet consectetur
+        {{ comment.text }}
       </div>
     </el-card>
   </div>

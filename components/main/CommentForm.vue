@@ -55,22 +55,25 @@ export default {
   }),
   methods: {
     submitHandler() {
-      this.$refs['form'].validate(valid => {
+      this.$refs['form'].validate(async valid => {
         if (valid) {
           this.loading = true
 
           const formData = {
             name: this.controls.name,
             text: this.controls.text,
-            postId: ''
+            postId: this.$route.params.id
           }
 
           try {
-            setTimeout(() => {
-              this.loading = false
-              this.$emit('created')
-              this.$message.success('Комментарий добавлен')
-            }, 1500)
+            const comment = await this.$store.dispatch(
+              'posts/createComment',
+              formData
+            )
+            this.$emit('commentCreated', comment)
+            this.controls.name = ''
+            this.controls.text = ''
+            this.loading = false
           } catch (e) {}
         }
       })
