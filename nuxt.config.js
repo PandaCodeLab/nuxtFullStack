@@ -19,7 +19,7 @@ module.exports = {
 
   plugins: ['@/plugins/globals', '~/plugins/axios'],
 
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
 
   axios: {},
 
