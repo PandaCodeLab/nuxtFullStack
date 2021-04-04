@@ -4,3 +4,4 @@ npm-debug.log
 dist
 server/keys/keys.dev.js
 sw.*
+.env

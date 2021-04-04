@@ -19,6 +19,9 @@ export default {
   },
   components: {
     AppPost
+  },
+  mounted() {
+    console.log(this.$config)
   }
 }
 </script>
