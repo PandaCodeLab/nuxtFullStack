@@ -2,5 +2,5 @@ node_modules
 npm-debug.log
 .nuxt
 dist
-server/keys
+server/keys/keys.dev.js
 sw.*
